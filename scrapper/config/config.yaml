@@ -1,0 +1,42 @@
+sites:
+  paris:
+    url: 'https://www.paris.cl'
+    selectors:
+      menu_categories: '.js-category-gm'
+      product_link: '.js-product-layer'
+      total_products: '.total-products'
+      pagination: '?start=PAGE_NUMBER'
+      init_page: 0
+      iterator_page: 40
+      items_per_page: 40
+      product:
+        image: '.main-image'
+        sku: '.product-sku'
+        title: '.js-product-name'
+        subtitle: '.short-description'
+        description: '.info-accordion'
+        internet_price: '.price-internet'
+        offer_price: '.offer-price'
+        normal_price: '.price-normal'
+        discount: '.discount'
+  feria_libro:
+    url: 'https://www.feriachilenadellibro.cl'
+    selectors:
+      menu_categories: '.itemMenuName'
+      product_link: '.product-item-link'
+      total_products: '.toolbar-number'
+      pagination: '?p=PAGE_NUMBER'
+      init_page: 1
+      iterator_page: 1
+      items_per_page: 32
+      product:
+        image: '.fotorama__stage__frame'
+        sku: '.sku'
+        title: '.base'
+        subtitle: '.manufacturer'
+        description: '.description .value'
+        internet_price: 'none'
+        offer_price: '.price-wrapper .price'
+        normal_price: '.store-price'
+        discount: 'none'
+

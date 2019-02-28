@@ -1,0 +1,69 @@
+{% extends "index.html" %}
+{% block content %}
+    <div class="row mt-4 mb-2">
+    <div class="col-md-1">
+        <a href="{% url 'index' %}" class="btn btn-light btn-sm"> < Volver</a>
+    </div>
+    <div class="col-md-11">
+        <h5 class="mb-0 mt-1">{{ enterprise.name }}</h5>
+        <p class="mb-0 text-muted"><small>{{ products.count }} Productos</small></p>
+    </div>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" class="pb-0 pt-1 text-muted" width="5%"><small>#</small></th>
+          <th scope="col" class="pb-0 pt-1 text-muted" width="40%"><small>Producto</small></th>
+          <th scope="col" class="pb-0 pt-1 text-muted" width="15%"><small>Precio</small></th>
+          <th scope="col" class="pb-0 pt-1 text-muted" width="30%"><small>Categorías</small></th>
+          <th scope="col" class="pb-0 pt-1" width="10%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr>
+          <td class="pb-0 pt-1" scope="row"><small>{{ product.id }}</small></td>
+          <td class="pb-1 pt-1 pl-0 pr-0">
+            <div class="media">
+                <img width="90" height="90" class="align-self-center mr-3 img-thumbnail" src="{{ product.image }}" alt="Generic placeholder image">
+                <div class="media-body">
+                  <small>
+                      <p class="mb-0"><b>{{ product.title }}</b></p>
+                      <span class="text-muted">{{ product.subtitle }}</span>
+                  </small>
+                </div>
+            </div>
+          </td>
+          <td class="pb-1 pt-1">
+              <small>
+                  {% if product.offer_price %}
+                      <p class="alert alert-warning pt-0 pb-0 pl-1 pr-1 mb-1">Oferta: {{ product.offer_price | floatformat:"0" }}</p>
+                  {% endif %}
+                  {% if product.internet_price %}
+                    <p class="alert alert-primary pt-0 pb-0 pl-1 pr-1 mb-1" role="alert">Internet: {{ product.internet_price | floatformat:"0" }}</p>
+                  {% endif %}
+                  {% if product.normal_price %}
+                     <p class="alert alert-light pt-0 pb-0 pl-1 pr-1 mb-0" role="alert">Normal: {{ product.normal_price | floatformat:"0" }}</p>
+                  {% endif %}
+              </small>
+          </td>
+          <td class="pb-1 pt-1">
+              {% with product.category.all as categories %}
+
+                  <ul class="tags">
+                    {% for category in categories %}
+                      <li><small href="#" class="tag">{{ category.name }}</small></li>
+                    {% endfor %}
+                    </ul>
+              {% endwith %}
+          </td>
+          <td class="pb-1 pt-1">
+              <a href="{% url 'product' product.id %}" class="col-sm-12 btn btn-primary btn-sm"><small>Detalle</small></a>
+              <a href="{{ product.url }}" class="badge badge-light" target="_blank"><small>Ver producto en tienda</small></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock content %}

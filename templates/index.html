@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Scraping</title>
+        {# Cargamos la librería #}
+          {% load bootstrap4 %}
+
+          {# CSS Bootstrap #}
+          {% bootstrap_css %}
+
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+
+    {# JS y jQuery Bootstrap #}
+      {% bootstrap_javascript jquery='full' %}
+
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="{% url 'index' %}">
+        <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+        Scrap
+      </a>
+    </nav>
+
+    <div class="container mt-5 mb-5">
+        {% block content %}{% endblock %}
+    </div>
+    </body>
+</html>

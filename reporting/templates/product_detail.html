@@ -1,0 +1,65 @@
+{% extends "index.html" %}
+{% block content %}
+    <div class="row mt-4 mb-2">
+    <div class="col-md-1">
+        <a href="{% url 'products' enterprise.id %}" class="btn btn-light btn-sm"> < Volver</a>
+    </div>
+    <div class="col-md-11">
+        <h5 class="mb-0 mt-1"><b>{{ enterprise.name }}:</b> {{ product.title }}</h5>
+        <p>{{ product.subtitle }}</p>
+    </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-7">
+            <img width="100%" src="{{ product.image }}" alt="">
+        </div>
+        <div class="col-sm-5">
+            {% with product.category.all as categories %}
+                  <ul class="tags">
+                    {% for category in categories %}
+                      <li><small href="#" class="tag">{{ category.name }}</small></li>
+                    {% endfor %}
+                    </ul>
+              {% endwith %}
+            <p class="col-sm-12">
+                {% if product.offer_price %}
+                      <p class="alert alert-warning pt-0 pb-0 pl-1 pr-1 mb-1 row mr-0 ml-0">
+                        <span class="col-sm-6">
+                            Oferta:
+                        </span>
+                          <span class="col-sm-6">
+                              {{ product.offer_price | floatformat:"0" }}
+                          </span>
+                      </p>
+                  {% endif %}
+                  {% if product.internet_price %}
+                    <p class="alert alert-primary pt-0 pb-0 pl-1 pr-1 mb-1 row mr-0 ml-0" role="alert">
+                        <span class="col-sm-6">
+                            Internet:
+                        </span>
+                          <span class="col-sm-6">
+                              {{ product.internet_price | floatformat:"0" }}
+                          </span>
+                    </p>
+                  {% endif %}
+                  {% if product.normal_price %}
+                     <p class="alert alert-light pt-0 pb-0 pl-1 pr-1 mb-0 row mr-0 ml-0" role="alert">
+                         <span class="col-sm-6">
+                                Normal:
+                         </span>
+                         <span class="col-sm-6">
+                             {{ product.normal_price | floatformat:"0" }}
+                         </span>
+                     </p>
+                  {% endif %}
+            </p>
+            <p>
+              <a href="{{ product.url }}" class="badge badge-info col-sm-12" target="_blank"><small>Ver producto en tienda</small></a>
+            </p>
+            {% if product.description %}
+                <p class="large-text">{{ product.description.strip }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

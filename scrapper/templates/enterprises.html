@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+{% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" class="pb-0 pt-1 text-muted"><small>#</small></th>
+      <th scope="col" class="pb-0 pt-1 text-muted"><small>Empresa</small></th>
+      <th scope="col" class="pb-0 pt-1 text-muted"><small>Total Productos</small></th>
+      <th scope="col" class="pb-0 pt-1 text-muted"><small>Total Categorías</small></th>
+      <th scope="col" class="pb-0 pt-1"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for enterprise in enterprises %}
+    <tr>
+      <td class="pb-0 pt-1" scope="row"><small>{{ enterprise.id }}</small></td>
+      <td class="pb-1 pt-1">
+          <small>
+              <p class="mb-0"><b>{{ enterprise.name }}</b></p>
+              <span class="text-muted">{{ enterprise.url }}</span>
+          </small>
+      </td>
+      <td class="pb-0 pt-1 align-middle" scope="row"><small>{{ enterprise.product_set.count }}</small></td>
+      <td class="pb-0 pt-1 align-middle" scope="row"><small>{{ enterprise.category_set.count }}</small></td>
+
+      <td class="pb-1 pt-1 align-middle">
+          <div class="text-right">
+              <a class="btn btn-outline-primary btn-sm" href="{% url 'start' %}?page={{ enterprise.slug }}">
+              <small>Capturar productos</small>
+          </a>
+
+          <a class="btn btn-success btn-sm" href="{% url 'products' enterprise.id %}">
+              <small>Ver Detalle</small>
+          </a>
+          </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}
